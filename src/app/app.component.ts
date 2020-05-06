@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Module} from './header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'recipe-app';
+  selectedMenu = Module.RECIPES;
+
+  module = Module;
+
+  onShoppingChosen(module: Module) {
+    this.selectedMenu = module;
+  }
 }
