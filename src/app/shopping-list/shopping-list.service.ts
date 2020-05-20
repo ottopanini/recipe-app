@@ -1,5 +1,6 @@
 import {Ingredient} from '../shared/ingredient.model';
 import {EventEmitter} from '@angular/core';
+import {markAsyncChunksNonInitial} from '@angular-devkit/build-angular/src/angular-cli-files/utilities/async-chunks';
 
 export class ShoppingListService {
   ingredientsChanged = new EventEmitter<Ingredient[]>();
@@ -13,8 +14,8 @@ export class ShoppingListService {
     return this.mIngredients.slice();
   }
 
-  addIngredient(ingredient: Ingredient) {
-    this.ingredients.push(ingredient);
-    this.ingredientsChanged.emit([...this.ingredients]);
+  addIngredient(ingredients: Ingredient[]) {
+    this.mIngredients = [...this.mIngredients, ...ingredients];
+    this.ingredientsChanged.emit([...this.mIngredients]);
   }
 }
