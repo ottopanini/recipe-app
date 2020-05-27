@@ -34,15 +34,15 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label>Ingredients</label>
+        <div class="col-xs-12" formArrayName="ingredients">
+          <label>Ingredients</label>
+          <div class="form-group" *ngFor="let ingredientCtrl of ingredientCtrls; let i=index" [formGroupName]="i">
             <div class="row">
               <div class="col-xs-8">
-                <input type="text" id="ingredientName" name="name" class="form-control">
+                <input type="text" id="ingredientName" formControlName="name" class="form-control">
               </div>
               <div class="col-xs-2">
-                <input type="number" id="amount" name="amount" class="form-control">
+                <input type="number" id="amount" formControlName="amount" class="form-control">
               </div>
               <div class="col-xs-2">
                 <button type="button" class="btn btn-danger">X</button>
