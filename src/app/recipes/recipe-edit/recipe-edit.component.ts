@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {RecipeService} from '../recipe.service';
+import {Ingredient} from '../../shared/ingredient.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -42,24 +43,36 @@ export class RecipeEditComponent implements OnInit {
       recipeDescription = recipe.description;
 
       if (recipe.ingredients) {
-        recipe.ingredients.forEach((ingredient) => recipeIngredients.push(new FormGroup({
-          // tslint:disable-next-line:object-literal-key-quotes
-          'name': new FormControl(ingredient.name),
-          // tslint:disable-next-line:object-literal-key-quotes
-          'amount': new FormControl(ingredient.amount)
-        })));
+        recipe.ingredients.forEach((ingredient) => recipeIngredients.push(this.getIngredientFormGroup(ingredient)));
       }
     }
 
     this.recipeForm = new FormGroup({
       // tslint:disable-next-line:object-literal-key-quotes
-      'name': new FormControl(recipeName),
+      'name': new FormControl(recipeName, Validators.required),
       // tslint:disable-next-line:object-literal-key-quotes
-      'imagePath': new FormControl(recipeImagePath),
+      'imagePath': new FormControl(recipeImagePath, Validators.required),
       // tslint:disable-next-line:object-literal-key-quotes
-      'description': new FormControl(recipeDescription),
+      'description': new FormControl(recipeDescription, Validators.required),
       // tslint:disable-next-line:object-literal-key-quotes
       'ingredients': recipeIngredients
+    });
+  }
+
+  getIngredientFormGroup(ingredient?: Ingredient) {
+    let name = '';
+    let amount = NaN;
+
+    if (ingredient) {
+      name = ingredient.name;
+      amount = ingredient.amount;
+    }
+
+    return new FormGroup({
+      // tslint:disable-next-line:object-literal-key-quotes
+      'name': new FormControl(name, Validators.required),
+      // tslint:disable-next-line:object-literal-key-quotes
+      'amount': new FormControl(amount, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
     });
   }
 
@@ -68,12 +81,6 @@ export class RecipeEditComponent implements OnInit {
   }
 
   onAddIngredient() {
-    (this.recipeForm.get('ingredients') as FormArray).push(
-      new FormGroup({
-        // tslint:disable-next-line:object-literal-key-quotes
-        'name': new FormControl(),
-        // tslint:disable-next-line:object-literal-key-quotes
-        'amount': new FormControl()
-      }));
+    (this.recipeForm.get('ingredients') as FormArray).push(this.getIngredientFormGroup());
   }
 }
