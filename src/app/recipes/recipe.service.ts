@@ -44,4 +44,8 @@ export class RecipeService {
     this.recipes = recipes;
     this.recipesChanged.next(this.getRecipes());
   }
+
+  hasRecipes() {
+    return this.recipes && this.recipes.length;
+  }
 }
