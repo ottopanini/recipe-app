@@ -35,7 +35,10 @@ export class AuthComponent implements OnInit {
           error => {
             console.log(error);
             this.isLoading = false;
-            this.error = 'an error';
+            switch (error.error.error.message) {
+              case 'EMAIL_EXISTS': this.error = 'E-Mail already in use'; break;
+              default:             this.error = 'an error';
+            }
           }
         );
       }
