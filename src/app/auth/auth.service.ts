@@ -38,6 +38,8 @@ export class AuthService {
     const expirationDate = new Date(new Date().getTime() + +response.expiresIn * 1000);
     const user = new User(response.email, response.localId, response.idToken, expirationDate);
     this.user.next(user);
+
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   private handleError(errorResult: HttpErrorResponse) {
@@ -67,5 +69,25 @@ export class AuthService {
   logout() {
     this.router.navigate(['auth']);
     this.user.next(null);
+  }
+
+  autoLogin() {
+    const userData: {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string; // not converted yet
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (userData) {
+      const loadedUser = new User(
+        userData.email,
+        userData.id,
+        userData._token,
+        new Date(userData._tokenExpirationDate));
+
+      if (loadedUser.token) {
+        this.user.next(loadedUser);
+      }
+    }
   }
 }
