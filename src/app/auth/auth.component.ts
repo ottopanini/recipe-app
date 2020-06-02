@@ -24,6 +24,7 @@ export class AuthComponent implements OnInit {
       const email = form.value.email;
       const password = form.value.password;
       this.isLoading = true;
+      this.error = null;
 
       const authObs: Observable<AuthResponseData> = this.isLoginMode ?
         this.authService.login(email, password) :
