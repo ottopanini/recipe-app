@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthResponseData, AuthService} from './auth.service';
 import {Observable} from 'rxjs';
@@ -10,7 +10,6 @@ import {Router} from '@angular/router';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-  collapsed: boolean;
   isLoginMode = true;
   isLoading = false;
   error: string = null;

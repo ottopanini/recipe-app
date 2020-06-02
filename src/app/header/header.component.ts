@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: User;
   isAuthenticated = false;
 
-  constructor(private dataStorageService: DataStorageService, private authService: AuthService) {}
+  constructor(private dataStorageService: DataStorageService, public authService: AuthService) {}
 
   onSaveData() {
     this.dataStorageService.storeRecipes();
