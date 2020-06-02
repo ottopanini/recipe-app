@@ -21,7 +21,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  signUp(email: string, password: string): Observable<AuthResponseData> {
+  signup(email: string, password: string): Observable<AuthResponseData> {
     return this.http.post<AuthResponseData>(AuthService.SIGNUP_ENDPOINT, {
       email,
       password,
