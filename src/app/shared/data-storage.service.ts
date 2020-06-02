@@ -21,27 +21,22 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.authService.user.pipe(
-      take(1),  // unsubscribe after one access
-      exhaustMap(user => {
-        return this.http
-          .get<Recipe[]>(
-            DataStorageService.RECIPES_STORE,
-            {
-              params: new HttpParams().set('auth', user.token)
-            }
-          );
-      }),
-      map(recipes => {
-        return recipes.map(recipe => {
-          return {
-            ...recipe,
-            ingredients: recipe.ingredients ? recipe.ingredients : []
-          };
-        });
-      }),
-      tap(recipes => {
-        this.recipeService.updateRecipes(recipes);
-      }));
+    return this.http
+      .get<Recipe[]>(
+        DataStorageService.RECIPES_STORE,
+      )
+      .pipe(
+        map(recipes => {
+          return recipes.map(recipe => {
+            return {
+              ...recipe,
+              ingredients: recipe.ingredients ? recipe.ingredients : []
+            };
+          });
+        }),
+        tap(recipes => {
+          this.recipeService.updateRecipes(recipes);
+        })
+      );
   }
 }
