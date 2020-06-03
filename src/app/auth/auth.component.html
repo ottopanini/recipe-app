@@ -6,7 +6,7 @@
 <!--
     <app-alert [message]="error" *ngIf="error" (close)="onHandleAlertClose()"></app-alert>
 -->
-    <div #adHere></div>
+    <ng-template appPlaceHolder></ng-template>
     <div *ngIf="isLoading" style="text-align: center"><app-loading-spinner></app-loading-spinner></div>
     <form (ngSubmit)="onSubmit(f)" #f="ngForm" *ngIf="!isLoading">
       <div class="form-group">

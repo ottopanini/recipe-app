@@ -4,6 +4,7 @@ import {AuthResponseData, AuthService} from './auth.service';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
 import {AlertComponent} from '../shared/alert/alert.component';
+import {PlaceholderDirective} from '../shared/placeholder/placeholder.directive';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +16,7 @@ export class AuthComponent implements OnInit {
   isLoading = false;
   error: string = null;
 
-  @ViewChild() alertCuePoint: Ng
+  @ViewChild(PlaceholderDirective, {static: false}) alertCuePoint: PlaceholderDirective;
 
   constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver) {
   }
@@ -56,6 +57,8 @@ export class AuthComponent implements OnInit {
 
   private showErrorAlert(message: string) {
     const alertComponentFactory = this.componentFactoryResolver.resolveComponentFactory<AlertComponent>(AlertComponent);
-    alertComponentFactory.create()
+    const hostViewContainerRef = this.alertCuePoint.viewContainerRef;
+    hostViewContainerRef.clear();
+    hostViewContainerRef.createComponent(alertComponentFactory);
   }
 }
