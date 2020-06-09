@@ -6,8 +6,7 @@ import {RecipeItemComponent} from './recipe-list/recipe-item/recipe-item.compone
 import {RecipeStartComponent} from './recipe-start/recipe-start.component';
 import {RecipeEditComponent} from './recipe-edit/recipe-edit.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
-import {RecipesRoutingModule} from './recipes-Routing.module';
+import {RecipesRoutingModule} from './recipes-routing.module';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 
