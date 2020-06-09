@@ -11,7 +11,7 @@ import {RouterModule} from '@angular/router';
   imports: [
     FormsModule,
     SharedModule,
-    RouterModule.forChild([{ path: 'auth', component: AuthComponent }]),
+    RouterModule.forChild([{ path: '', component: AuthComponent }]),
   ]
 })
 
